@@ -16,7 +16,7 @@ const App = () => {
     if (search.length < 3) return;
     async function fetchMovie(){
       try{
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${search}`)
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${search}`)
         if(!res.ok) throw new Error ("Something went wrong with network!")
         const data = await res.json();
         if(!data) throw new Error ("No data to process");

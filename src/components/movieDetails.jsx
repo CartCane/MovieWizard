@@ -9,7 +9,7 @@ const MovieDetails = ({onClose, selectedId, onAdd}) => {
   useEffect(function(){
     async function fetchMovie(){
       try{
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`);
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`);
         const data = await res.json();
         setCurrentMovie(data);
         console.log(data);
