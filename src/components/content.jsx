@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import Main from './Main'
 import Box from './box'
 import MovieDetails from './movieDetails'
 
@@ -26,7 +27,7 @@ const Content = ({movies, error}) => {
   }
 
   return (
-    <div className="content">
+    <Main>
       <Box>
         {error && <p>{error}</p>}
         {movies && <MovieList movies={movies} onSelected={handleSelectedId}/>}
@@ -38,7 +39,7 @@ const Content = ({movies, error}) => {
           {watchedMovie.length !== 0 && <WatchedMovies watched={watchedMovie}/>}
         </>}
       </Box>
-    </div>
+    </Main>
   )
 }
 

@@ -13,7 +13,11 @@ const NavBar = ({movies, onSearch}) => {
 export default NavBar
 
 function Logo(){
-    return <p>InfoBar</p>
+    return(
+      <div className="logo">
+        <span>🍿</span>
+        <h1>MovieWizard</h1></div>
+    )
 }
 
 function Search({onSearch}){
@@ -24,5 +28,5 @@ function Search({onSearch}){
 }
 
 function NumResults({movies}){
-    return <p>Found {movies ? movies.length : "0"} results</p>
+    return <p className="num-results">Found {movies ? movies.length : "0"} results</p>
 }
