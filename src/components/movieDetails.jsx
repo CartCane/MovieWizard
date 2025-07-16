@@ -12,7 +12,6 @@ const MovieDetails = ({onClose, selectedId, onAdd}) => {
         const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`);
         const data = await res.json();
         setCurrentMovie(data);
-        console.log(data);
       } catch(err){
         console.log(err)
       }

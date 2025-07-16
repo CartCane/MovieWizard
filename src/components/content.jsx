@@ -17,13 +17,11 @@ const Content = ({movies, error}) => {
 
   function handleClose(){
     setSelectedId(null);
-    console.log(watchedMovie);
   }
 
   function handleAddWatched(movie){
     setWatchedMovie((item)=>[...item, movie]);
     setSelectedId("");
-    console.log(movie)
   }
 
   return (
@@ -36,7 +34,7 @@ const Content = ({movies, error}) => {
         {selectedId ? <MovieDetails onClose={handleClose} selectedId={selectedId} onAdd={handleAddWatched}/> :
         <>
           <WatchedSummary watched={watchedMovie}/>
-          {watchedMovie.length !== 0 && <WatchedMovies watched={watchedMovie}/>}
+          {watchedMovie.length !== 0 && <WatchedMovieList watched={watchedMovie}/>}
         </>}
       </Box>
     </Main>
@@ -50,45 +48,65 @@ function WatchedSummary({watched}){
   const averageUserRating = average(watched.map(movie=>movie.userRating)); //same
   const averageRuntime = average(watched.map(movie => movie.runtime)) //same
 
-  useEffect( function(){
-    console.log(averageImdb);
-  }, [averageImdb])
     return (
     <div className="summary">
-        <h1>movies you watched</h1>
-        <div className="list">
-            <p>#️⃣ {watched?watched.length:0} movie</p>
-            <p>⭐ {averageImdb}</p>
-            <p>🌟 {averageUserRating}</p>
-            <p>⌛ {averageRuntime} min</p>
+        <h2>movies you watched</h2>
+        <div>
+            <p>
+              <span>#️⃣</span>
+              <span>{watched?watched.length:0} movie</span>
+            </p>
+            <p>
+              <span>⭐</span>
+              <span>{averageImdb}</span>
+            </p>
+            <p>
+              <span>🌟</span>
+              <span>{averageUserRating}</span> 
+            </p>
+            <p>
+              <span>⌛</span>
+              <span>{averageRuntime} min</span>
+            </p>
         </div>
     </div>
     )
 }
 
-function WatchedMovies({watched}){
+function WatchedMovieList({watched}){
   return(
-    <div>
-      {watched.map(item => 
-        <div className="movie" key={item.imdbID}>
-          <img src={item.poster} alt="image"/>
-          <div>
-            <h2>{item.title}</h2>
-            <div>
-              <p>{item.rating}</p>
-              <p>{item.userRating}</p>
-              <p>{item.runtime}</p>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    <ul className="list">
+      {watched.map(movie => <WatchedMovies movie={movie}/>)}
+    </ul>
+  )
+}
+
+function WatchedMovies({movie}){
+  return(
+    <li key={movie.imdbID}>
+      <img src={movie.poster} alt="image"/>
+      <h3>{movie.title}</h3>
+      <div>
+        <p>
+          <span>⭐</span>
+          <span>{movie.rating}</span>
+        </p>
+        <p>
+          <span>🌟</span>
+          <span>{movie.userRating}</span>
+        </p>
+        <p>
+          <span>⌛</span>
+          <span>{movie.runtime}</span>
+        </p>
+      </div>
+    </li>
   )
 }
 
 function MovieList({movies, onSelected}){
     return(
-      <div>
+      <div className="list list-movies">
         {movies.map(movie => <Movie key={movie.imdbID} movie={movie} onSelected={onSelected}/>)}
       </div>
     )
@@ -96,12 +114,15 @@ function MovieList({movies, onSelected}){
 
 function Movie({movie, onSelected}){
   return(
-    <div className="movie" onClick={()=>onSelected(movie.imdbID)}>
-      <img src={movie.Poster} alt="img"/>
-      <div className="movie-description">
-        <h2>{movie.Title}</h2>
-        <p>📅 {movie.Year}</p>
+    <li onClick={()=>onSelected(movie.imdbID)}>
+      <img src={movie.Poster} alt={movie.Title}/>
+      <h3>{movie.Title}</h3>
+      <div>
+        <p>
+          <span>🗓</span>
+          <span>{movie.Year}</span> 
+        </p>
       </div>
-    </div>
+    </li>
   )
 }

@@ -14,21 +14,25 @@ const App = () => {
 
   useEffect(()=>{
     if (search.length < 3) return;
+    const controller = new AbortController();
     async function fetchMovie(){
       try{
-        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${search}`)
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${search}`, {signal: controller.signal})
         if(!res.ok) throw new Error ("Something went wrong with network!")
         const data = await res.json();
         if(!data) throw new Error ("No data to process");
         setMovies(data.Search);
-        console.log(data);
       }
       catch(err){
-        console.log(err);
-        setError(err.message);
+        if (err.name !== "AbortError"){
+          setError(err.message);
+        }
       }
     }
     fetchMovie();
+    return function(){
+      controller.abort();
+    }
   }, [search])
 
   return (

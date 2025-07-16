@@ -6,6 +6,7 @@ const NavBar = ({movies, onSearch}) => {
       <Logo />
       <Search onSearch={onSearch}/>
       <NumResults movies={movies}/>
+      <UserAuth />
     </div>
   )
 }
@@ -29,4 +30,12 @@ function Search({onSearch}){
 
 function NumResults({movies}){
     return <p className="num-results">Found {movies ? movies.length : "0"} results</p>
+}
+
+function UserAuth(){
+  return(
+    <div className="auth">
+      <a>Login</a>
+    </div>
+  )
 }
