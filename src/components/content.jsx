@@ -3,9 +3,8 @@ import Main from './Main'
 import Box from './box'
 import MovieDetails from './movieDetails'
 
-const average = (arr) => {
+const average = (arr) => 
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-}
 
 const Content = ({movies, error}) => {
   const [watchedMovie, setWatchedMovie] = useState([]);
@@ -44,9 +43,9 @@ const Content = ({movies, error}) => {
 export default Content
 
 function WatchedSummary({watched}){
-  const averageImdb = average(watched.map(movie=>movie.imdbID)); //undefined
-  const averageUserRating = average(watched.map(movie=>movie.userRating)); //same
-  const averageRuntime = average(watched.map(movie => movie.runtime)) //same
+  const averageImdb = average(watched.map(movie=>movie.imdbRating)); //undefined
+  const averageUserRating = average(watched.map(movie=>movie.userRating)); 
+  const averageRuntime = average(watched.map(movie => movie.runtime)) 
 
     return (
     <div className="summary">
@@ -58,11 +57,11 @@ function WatchedSummary({watched}){
             </p>
             <p>
               <span>⭐</span>
-              <span>{averageImdb}</span>
+              <span>{averageImdb.toFixed(2)}</span>
             </p>
             <p>
               <span>🌟</span>
-              <span>{averageUserRating}</span> 
+              <span>{averageUserRating.toFixed(2)}</span> 
             </p>
             <p>
               <span>⌛</span>
@@ -89,7 +88,7 @@ function WatchedMovies({movie}){
       <div>
         <p>
           <span>⭐</span>
-          <span>{movie.rating}</span>
+          <span>{movie.imdbRating}</span>
         </p>
         <p>
           <span>🌟</span>
