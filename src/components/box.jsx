@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 
-const Box = ({children}) => {
+const Box = ({hide = "", children}) => {
     const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="box">
+    <div className={`box ${hide}`}>
         <button className="btn-toggle" onClick={()=>setIsOpen(e=>!e)}>{isOpen ? "-" : "+"}</button>
       {isOpen && children}
     </div>

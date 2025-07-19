@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react';
+import MovieList from './MovieList';
 
-const NavBar = ({movies, onSearch}) => {
+const NavBar = ({movies, onSearch, onSelectedId}) => {
   return (
     <div className="nav">
       <Logo />
-      <Search onSearch={onSearch}/>
+      <Search onSearch={onSearch} onSelectedId={onSelectedId}/>
       <NumResults movies={movies}/>
       <UserAuth />
+      <HamburgerBar />
     </div>
   )
 }
@@ -17,25 +19,63 @@ function Logo(){
     return(
       <div className="logo">
         <span>🍿</span>
-        <h1>MovieWizard</h1></div>
+        <h1 className="hide">MovieWizard</h1></div>
     )
 }
 
-function Search({onSearch}){
+function Search({onSearch, onSelectedId}){
+  const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState("");
+  const [isActive, setIsActive] = useState(false);
+  const apiKey = "dae594e0";
+
   function handleSearch(e){
     onSearch(e.target.value);
+    setSearch(e.target.value);
+    setIsActive(true);
+    if (e.target.value.length === 0){
+      setIsActive(false)
+    }
   }
-  return <input className="search" onChange={handleSearch} placeholder='Enter movie...'/>
+
+  useEffect( function(){
+    const controller = new AbortController();
+    async function fetchData(){
+      const res = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${search}`, {signal: controller.signal});
+      const data = await res.json();
+      setMovies(data.Search);
+      console.log(data.Search)
+    }
+    fetchData();
+    controller.abort;
+  }, [search])
+  return (
+    <div>
+      <input className="search" onChange={handleSearch} onBlur={()=>setTimeout(() => setIsActive(false), 100)} placeholder='Enter movie...'/>
+      {isActive && <div className="inline-results  hamburger">
+        <MovieList movies={movies} onSelected={onSelectedId}/>
+      </div>}
+    </div>)
 }
 
 function NumResults({movies}){
-    return <p className="num-results">Found {movies ? movies.length : "0"} results</p>
+    return <p className="num-results hide">Found {movies ? movies.length : "0"} results</p>
 }
 
 function UserAuth(){
   return(
-    <div className="auth">
+    <div className="auth hide">
       <a>Login</a>
+    </div>
+  )
+}
+
+function HamburgerBar(){
+  return(
+    <div className="hamburger ok">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25px" fill="white" viewBox="0 0 448 512">
+        <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+      </svg>
     </div>
   )
 }

@@ -6,10 +6,16 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
+  const [selectedId, setSelectedId] = useState("");
   const apiKey = "dae594e0";
 
   function handleSearch(word){
     setSearch(word);
+  }
+
+  function handleSelectedId(id){
+    setSelectedId((i) => i === id ? "" : id);
+    console.log(id);
   }
 
   useEffect(()=>{
@@ -37,8 +43,8 @@ const App = () => {
 
   return (
     <div>
-      <NavBar movies={movies} onSearch={handleSearch}/>
-      <Content movies={movies} error={error}/>
+      <NavBar movies={movies} onSearch={handleSearch} onSelectedId={handleSelectedId}/>
+      <Content movies={movies} error={error} onSelectedId={handleSelectedId} selectedId={selectedId}/>
     </div>
   )
 }

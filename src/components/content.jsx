@@ -1,35 +1,31 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Main from './Main'
 import Box from './box'
 import MovieDetails from './movieDetails'
+import MovieList from './MovieList'
 
 const average = (arr) => 
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const Content = ({movies, error}) => {
+const Content = ({movies, error, onSelectedId, selectedId}) => {
   const [watchedMovie, setWatchedMovie] = useState([]);
-  const [selectedId, setSelectedId] = useState("");
-
-  function handleSelectedId(id){
-    setSelectedId((i) => i === id ? "" : id);
-  }
 
   function handleClose(){
-    setSelectedId(null);
+    onSelectedId(null);
   }
 
   function handleAddWatched(movie){
     setWatchedMovie((item)=>[...item, movie]);
-    setSelectedId("");
+    onSelectedId("");
   }
 
   return (
     <Main>
-      <Box>
+      <Box hide="hide">
         {error && <p>{error}</p>}
-        {movies && <MovieList movies={movies} onSelected={handleSelectedId}/>}
+        {movies && <MovieList movies={movies} onSelected={onSelectedId}/>}
       </Box>
-      <Box>
+      <Box className="hide">
         {selectedId ? <MovieDetails onClose={handleClose} selectedId={selectedId} onAdd={handleAddWatched}/> :
         <>
           <WatchedSummary watched={watchedMovie}/>
@@ -97,29 +93,6 @@ function WatchedMovies({movie}){
         <p>
           <span>⌛</span>
           <span>{movie.runtime}</span>
-        </p>
-      </div>
-    </li>
-  )
-}
-
-function MovieList({movies, onSelected}){
-    return(
-      <div className="list list-movies">
-        {movies.map(movie => <Movie key={movie.imdbID} movie={movie} onSelected={onSelected}/>)}
-      </div>
-    )
-}
-
-function Movie({movie, onSelected}){
-  return(
-    <li onClick={()=>onSelected(movie.imdbID)}>
-      <img src={movie.Poster} alt={movie.Title}/>
-      <h3>{movie.Title}</h3>
-      <div>
-        <p>
-          <span>🗓</span>
-          <span>{movie.Year}</span> 
         </p>
       </div>
     </li>

@@ -34,6 +34,7 @@ body{
 .nav{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
   align-items: center;
   height: 7.2rem;
   padding: 0 3.2rem;
@@ -91,7 +92,7 @@ body{
   padding: 1.1rem 1.6rem;
   font-size: 1.8rem;
   border-radius: 0.7rem;
-  width: 40rem;
+  /* width: 60rem; */
   transition: all 0.3s;
   color: var(--color-text);
   background-color: #7950f2;
@@ -104,6 +105,20 @@ body{
   outline: none;
   box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, .1);
   transform: translateY(-2px);
+}
+
+.inline-results{
+  position: absolute;
+  padding: 1rem;
+  background-color: #7950f2;
+  width: 40rem;
+  height: 50%;
+  z-index: 9999;
+  color: black;
+  border-bottom-left-radius: 0.7rem;
+  border-bottom-right-radius: 0.7rem;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .num-results{
@@ -119,6 +134,11 @@ body{
 .auth:hover{
   text-decoration: underline;
 }
+
+.hamburger{
+  display: none;
+}
+
 .btn-toggle{
   position: absolute;
   top: 0.8rem;
@@ -283,4 +303,40 @@ body{
 
 .plot .desc{
   font-style: italic;
+}
+
+/* responsive UI  */
+@media (max-width: 760px) {
+  body{
+    padding: 1.2rem;
+    width: 100%;
+  }
+
+
+  .logo span{
+    font-size: 3.2rem;
+  }
+
+  .nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: auto;
+  }
+
+  .search{
+    max-width: 30rem;
+  }
+  .hide{
+    display: none;
+  }
+  .hamburger{
+    padding: .3rem .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .hamburger:active{
+    opacity: 50%;
+  }
 }
