@@ -10,7 +10,7 @@ const NavBar = ({movies, onSearch, onSelectedId}) => {
       <UserAuth />
       <HamburgerBar />
     </div>
-  )
+  ) 
 }
 
 export default NavBar
@@ -41,10 +41,9 @@ function Search({onSearch, onSelectedId}){
   useEffect( function(){
     const controller = new AbortController();
     async function fetchData(){
-      const res = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${search}`, {signal: controller.signal});
+      const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${search}`, {signal: controller.signal});
       const data = await res.json();
       setMovies(data.Search);
-      console.log(data.Search)
     }
     fetchData();
     controller.abort;
