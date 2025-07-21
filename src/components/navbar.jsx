@@ -2,13 +2,18 @@ import React, {useState, useEffect} from 'react';
 import MovieList from './MovieList';
 
 const NavBar = ({movies, onSearch, onSelectedId}) => {
+  const [isBarActive, setIsBarActive] = useState(false);
+
+  function handleBarToggle(){
+    setIsBarActive(i => !i);
+  }
   return (
     <div className="nav">
       <Logo />
       <Search onSearch={onSearch} onSelectedId={onSelectedId}/>
       <NumResults movies={movies}/>
-      <UserAuth />
-      <HamburgerBar />
+      <UserAuth isActive={isBarActive} toggle={handleBarToggle}/>
+      <HamburgerBar isActive={handleBarToggle}/>
     </div>
   ) 
 }
@@ -61,17 +66,18 @@ function NumResults({movies}){
     return <p className="num-results hide">Found {movies ? movies.length : "0"} results</p>
 }
 
-function UserAuth(){
+function UserAuth({isActive, toggle}){
   return(
-    <div className="auth hide">
+    isActive && <div className="auth">
+      <p onClick={toggle}>&#10060;</p>
       <a>Login</a>
     </div>
   )
 }
 
-function HamburgerBar(){
+function HamburgerBar({isActive}){
   return(
-    <div className="hamburger ok">
+    <div className="hamburger ok" onClick={isActive}>
       <svg xmlns="http://www.w3.org/2000/svg" height="25px" fill="white" viewBox="0 0 448 512">
         <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
       </svg>
