@@ -54,7 +54,7 @@ function Search({onSearch, onSelectedId}){
     controller.abort;
   }, [search])
   return (
-    <div>
+    <div className="search-bar">
       <input className="search" onChange={handleSearch} onBlur={()=>setTimeout(() => setIsActive(false), 100)} placeholder='Enter movie...'/>
       {isActive && <div className="inline-results  hamburger">
         <MovieList movies={movies} onSelected={onSelectedId}/>
@@ -68,10 +68,13 @@ function NumResults({movies}){
 
 function UserAuth({isActive, toggle}){
   return(
-    isActive && <div className="auth">
+    <>
+    <a style={{fontSize: "1.8rem", cursor: "pointer", justifySelf: "end"}} className="hide">Login</a>
+    {isActive && <div className="auth">
       <p onClick={toggle}>&#10060;</p>
       <a>Login</a>
-    </div>
+    </div>}
+    </>
   )
 }
 

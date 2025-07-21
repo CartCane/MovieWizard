@@ -89,8 +89,10 @@ body{
   outline: none;
 } */
 
-.search{
+.search-bar{
   justify-self: center;
+}
+.search{
   border: none;
   padding: 1.1rem 1.6rem;
   font-size: 1.8rem;
@@ -113,7 +115,7 @@ body{
 .inline-results{
   position: absolute;
   padding: 1rem;
-  background-color: #7950f2;
+  background-color: #fff;
   width: 40rem;
   height: 50%;
   z-index: 9999;
@@ -333,6 +335,11 @@ body{
 
   .search{
     max-width: 30rem;
+  }
+  .inline-results{
+    position: relative;
+    width: 97%;
+    border-radius: 1rem;
   }
   .hide{
     display: none;
