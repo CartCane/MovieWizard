@@ -69,7 +69,7 @@ function NumResults({movies}){
 function UserAuth({isActive, toggle}){
   return(
     <>
-    <a style={{fontSize: "1.8rem", cursor: "pointer", justifySelf: "end"}} className="hide">Login</a>
+    <a className="auth-b hide">Login</a>
     {isActive && <div className="auth">
       <p onClick={toggle}>&#10060;</p>
       <a>Login</a>

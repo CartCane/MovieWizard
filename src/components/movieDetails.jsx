@@ -25,7 +25,13 @@ const MovieDetails = ({onClose, selectedId, onAdd}) => {
   } = currentMovie;
 
   function handleAdd(){
-    const newWatchedMovie = {title, poster, imdbRating, userRating, runtime};
+    const newWatchedMovie = {
+      title, 
+      poster, 
+      imdbRating, 
+      userRating, 
+      runtime: Number(runtime.split(" ").at(0)),
+    }
     onAdd(newWatchedMovie);
   }
 

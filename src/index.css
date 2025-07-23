@@ -131,12 +131,12 @@ body{
   font-size: 1.8rem;
 }
 
-.auth{
+.auth-b{
   justify-self: end;
   font-size: 1.8rem;
   cursor: pointer;
 }
-.auth:hover{
+.auth-b:hover{
   text-decoration: underline;
 }
 
@@ -346,23 +346,33 @@ body{
   }
   .auth{
     position: absolute;
+    justify-self: end;
+    font-size: 1.8rem;
     color: black;
     top: 1.6rem;
-    
+    right: 0;
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     height: 100vh;
     width: 60vw;
     z-index: 9999;
   }
   .auth p{
-    position: absolute;
+    position: relative;
+    align-self: end;
     right: 0;
     margin: 1rem;
     cursor: pointer;
   }
   .auth a{
     padding: 2rem;
+    font-weight: 600;
+    letter-spacing: .2rem;
   }
+  /* .auth a:active{
+    text-decoration: underline;
+  } */
 
   .hamburger{
     padding: .3rem .5rem;

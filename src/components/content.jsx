@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Main from './Main'
 import Box from './box'
 import MovieDetails from './movieDetails'
@@ -18,6 +18,10 @@ const Content = ({movies, error, onSelectedId, selectedId}) => {
     setWatchedMovie((item)=>[...item, movie]);
     onSelectedId("");
   }
+
+  useEffect(()=>{
+    console.log(watchedMovie);
+  }, [watchedMovie])
 
   return (
     <Main>
@@ -39,9 +43,13 @@ const Content = ({movies, error, onSelectedId, selectedId}) => {
 export default Content
 
 function WatchedSummary({watched}){
-  const averageImdb = average(watched.map(movie=>movie.imdbRating)); //undefined
+  const averageImdb = average(watched.map(movie=>movie.imdbRating)); 
   const averageUserRating = average(watched.map(movie=>movie.userRating)); 
   const averageRuntime = average(watched.map(movie => movie.runtime)) 
+
+  useEffect(()=>{
+    console.log(averageRuntime);
+  }, [averageRuntime])
 
     return (
     <div className="summary">
